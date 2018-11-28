@@ -1,19 +1,18 @@
-
 <!-- 房态图画面 -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="zh-CN" ng-app="app">
+
 <head>
     <base href="<%=basePath%>">
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link href="bower_components/mdui/dist/css/mdui.css">
     <script src="bower_components/mdui/dist/js/mdui.js"></script>
 
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="bower_components/font-awesome/web-fonts-with-css/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/web-fonts-with-css/css/font-awesome.min.css" />
 
     <style>
 
@@ -21,169 +20,118 @@
     </style>
 
 </head>
-<body  ng-controller="appCtrl">
 
-<nav class="navbar navbar-default navbar-fixed-top" >
+<body ng-controller="appCtrl">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <form class="navbar-form navbar-left">
+
+                <div class="form-group">
+                    <button class="btn btn-primary" ng-click="search()">查询</button>
+                </div>
+
+            </form>
+        </div><!-- /.container-fluid -->
+
+    </nav>
     <div class="container-fluid">
-        <form class="navbar-form navbar-left">
-            <div class="form-group">
-                <label class="control-label">楼名:</label>
-                <s:select name="buildingId"  cssClass="form-control" id="buildingId"
-                          list="buildingList" listKey="key" listValue="value" />
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Age</th>
+                        </tr>
+                        <tr class="primary">
+                            <td>1</td>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td><a class="email-link" ng-href="mailto:mdo@gmail.com" href="mailto:mdo@gmail.com">mdo@gmail.com</a></td>
+                            <td>28</td>
+                        </tr>
+                        <tr class="success">
+                            <td>2</td>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                            <td><a class="email-link" ng-href="mailto:fat@yandex.ru" href="mailto:fat@yandex.ru">fat@yandex.ru</a></td>
+                            <td>45</td>
+                        </tr>
+                        <tr class="warning">
+                            <td>3</td>
+                            <td>Larry</td>
+                            <td>Bird</td>
+                            <td>@twitter</td>
+                            <td><a class="email-link" ng-href="mailto:twitter@outlook.com" href="mailto:twitter@outlook.com">twitter@outlook.com</a></td>
+                            <td>18</td>
+                        </tr>
+                        <tr class="danger">
+                            <td>4</td>
+                            <td>John</td>
+                            <td>Snow</td>
+                            <td>@snow</td>
+                            <td><a class="email-link" ng-href="mailto:snow@gmail.com" href="mailto:snow@gmail.com">snow@gmail.com</a></td>
+                            <td>20</td>
+                        </tr>
+                        <tr class="info">
+                            <td>5</td>
+                            <td>Jack</td>
+                            <td>Sparrow</td>
+                            <td>@jack</td>
+                            <td><a class="email-link" ng-href="mailto:jack@yandex.ru" href="mailto:jack@yandex.ru">jack@yandex.ru</a></td>
+                            <td>30</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-
-
-            <div class="form-group">
-                <label class="checkbox">
-                    有
-                    <input type="checkbox" ng-model="emptyBed"/>
-                </label>
-
-            </div>
-            <div class="form-group">
-                <button  class="btn btn-primary" ng-click="search()">查询</button>
-            </div>
-
-        </form>
-    </div><!-- /.container-fluid -->
-
-</nav>
-<div class="container-fluid"  >
-
-    <div class="panel panel-default with-scroll">
-        <div class="panel-body">
-
-            <table class="table table-bordered table-hover table-condensed"
-                   st-persist="rulesTable"
-                   st-pipe="callServer"
-                   st-table="rules"
-            >
-                <thead>
-                <tr>
-                    <th colspan="5">
-                        <input st-search="match" placeholder="global search" class="input-sm form-control" type="search"/>
-                    </th>
-
-                </tr>
-                <tr>
-                    <th></th>
-                    <th>名称</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="item in vm.rules">
-
-                    <td>{{ $index+1 }}</td>
-                    <td>
-                        <a>
-                            {{ item.title }}
-                        </a>
-                    </td>
-
-                    <td>
-                        <button type="button" ng-click="vm.edit(item)"
-                                class="btn btn-sm btn-primary ">
-                            <i class="fa fa-edit"></i>
-                            修改
-                        </button>
-                        <button type="button" ng-click="vm.destroy(item)"
-                                class="btn btn-sm btn-danger ">
-                            <i class="fa fa-trash-o"></i>
-                            刪除
-                        </button>
-                    </td>
-
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="7" class="text-center">
-                        <div st-pagination="" st-items-by-page="10" ></div>
-                    </td>
-                </tr>
-                </tfoot>
-
-            </table>
-
         </div>
+
     </div>
 
-</div>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="bower_components/lodash/dist/lodash.min.js"></script>
+    <script src="bower_components/restangular/dist/restangular.min.js"></script>
+    <script src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
+
+    <script type="text/javascript">
+        'use strict';
+        var app = angular.module('app', [
+            'restangular',
 
 
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="bower_components/angular/angular.min.js"></script>
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<script src="bower_components/lodash/dist/lodash.min.js"></script>
-<script src="bower_components/restangular/dist/restangular.min.js"></script>
-<script src="bower_components/angular-smart-table/dist/smart-table.min.js"></script>
-
-<script type="text/javascript">
-
-
-    'use strict';
-    var app = angular.module('app', [
-        'restangular',
-        'smart-table',
-
-    ]);
+        ]);
 
 
 
-    angular.module('app')
-        .config(config);
+        angular.module('app')
+            .config(config);
 
-    /** @ngInject */
-    function config($httpProvider
-        ,RestangularProvider
+        /** @ngInject */
+        function config($httpProvider, RestangularProvider
 
-    ) {
-        RestangularProvider.setBaseUrl('api');
-    }
-
-
-    angular.module('app').controller('appCtrl', function ($scope, Restangular) {
-        $scope.rules = [];
-        $scope.callServer = function callServer(tableState) {
-
-            var number = tableState.pagination.number || 10;  // Number of entries showed per page.
-
-            var start = tableState.pagination.start || 0;
-
-            var match = "";
-            if (tableState.search.predicateObject&&tableState.search.predicateObject["match"]) {
-                match =tableState.search.predicateObject["match"];
-            }
+        ) {
+            RestangularProvider.setBaseUrl('api');
+        }
 
 
-            var pagination = {
-                page:start/number,
-                size:number,
-                match:match
-            };
-
-            Restangular.all('rules').customGET("search/filter",pagination).then(function(response) {
-
-
-                vm.rules = halService.getList("rules",response);
-
-                tableState.pagination.numberOfPages = response.page.totalPages;//set the number of pages so the pagination can update
-                tableState.pagination.totalItemCount = response.page.totalElements;
+        angular.module('app').controller('appCtrl', function ($scope, Restangular) {
 
 
 
-            }, function(error) {
-
-            });
-
-
-        };
-
-
-    });
-</script>
+        });
+    </script>
 
 </body>
 
