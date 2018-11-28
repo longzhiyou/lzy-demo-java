@@ -2,6 +2,8 @@
 server:
   port: ${port:3008}
 
+storage:
+  location: upload-dir
 
 # 定时任务 0/10 * *  * * ? 每隔十秒
 cron:

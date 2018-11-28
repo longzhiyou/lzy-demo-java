@@ -1,0 +1,25 @@
+{
+  "name": "lzy-demo",
+  "version": "1.3.1",
+  "homepage": "https://github.com/longzhiyou",
+  "authors": [
+    "lzy"
+  ],
+  "description": "Blur Admin HTML template",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "restangular": "^1.6.1",
+    "jquery": "^3.3.1",
+    "bootstrap": "3.3.7",
+    "mdui": "^0.4.2",
+    "font-awesome": "^5.5.0"
+  },
+  "overrides": {}
+}

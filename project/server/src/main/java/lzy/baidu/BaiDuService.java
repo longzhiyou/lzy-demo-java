@@ -5,8 +5,17 @@ import com.baidu.aip.ocr.AipOcr;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 百度相关的服务
@@ -20,9 +29,56 @@ public class BaiDuService {
 
     private final Logger logger = Logger.getLogger(BaiDuService.class);
 
+    Path rootLocation = Paths.get("upload-dir");
+
+    public List<FileInfo> loadAll() {
+
+        List<FileInfo> fileInfos = new ArrayList<>();
+
+        try {
+            Stream<Path> pathStream = Files.walk(this.rootLocation, 1)
+                    .filter(path -> !path.equals(this.rootLocation))
+                    .map(path -> this.rootLocation.relativize(path));
+
+//            Files.walk(Paths.get(SOURCEDIR)).filter(Files::isRegularFile).forEach(filePath ->{
+//
+//                String name=filePath.getFilename().toString();
+//
+//                if (name.startWith("_O"){
+//                    System.out.println(filePath.getFileName());
+//                }
+//
+//            });
 
 
-    public void ocr(){
+
+            pathStream.forEach(
+                    filePath -> {
+                        if (true){
+
+                            System.out.println(filePath.getFileName());
+                            FileInfo fileInfo = new FileInfo();
+                            fileInfo.setFileName(filePath.getFileName().toString());
+                            fileInfos.add(fileInfo);
+                        }
+                    }
+            );
+//            pathStream.map(
+//                    path -> MvcUriComponentsBuilder.fromMethodName(serveFile", path.getFileName().toString()).build().toString())
+//                    .collect(Collectors.toList()));
+
+
+
+        } catch (IOException e) {
+
+        }
+
+        return fileInfos;
+
+    }
+
+    public void ocr(String image){
+
 
         //临时设置APPID/AK/SK,以后从数据库获取
          String APP_ID = "14943176";
@@ -42,18 +98,9 @@ public class BaiDuService {
 
         // 调用接口
         // 参数为本地路径
-        String image = "d:\\taxi.jpg";
+
         JSONObject res = client.taxiReceipt(image, options);
         System.out.println(res.toString(2));
-
-//        // 参数为二进制数组
-//        byte[] file = readFile("test.jpg");
-//        res = client.taxiReceipt(file, options);
-//        System.out.println(res.toString(2));
-
-//        String path = "d:\\taxi.jpg";
-//        JSONObject res = client.basicGeneral(path, new HashMap<String, String>());
-//        System.out.println(res.toString(2));
 
 
 

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * User: longzhiyou
  * Date: 2018/11/26
@@ -23,8 +25,16 @@ public class BaiDuController {
 
     @GetMapping(value = "/ocr")
     public ResponseEntity ocr() {
-        baiDuService.ocr();
+        String image = "d:\\taxi.jpg";
+        baiDuService.ocr(image);
         return new ResponseEntity(HttpStatus.OK);
+
+    }
+
+    @GetMapping(value = "/files")
+    public ResponseEntity files() {
+        List<FileInfo> fileInfos = baiDuService.loadAll();
+        return new ResponseEntity(fileInfos,HttpStatus.OK);
 
     }
 }

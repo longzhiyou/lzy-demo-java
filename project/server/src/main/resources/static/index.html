@@ -1,0 +1,96 @@
+
+<!-- 房态图画面 -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="zh-CN" ng-app="app">
+<head>
+    <base href="<%=basePath%>">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="bower_components/mdui/dist/css/mdui.css">
+    <script src="bower_components/mdui/dist/js/mdui.js"></script>
+
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/web-fonts-with-css/css/font-awesome.min.css"/>
+
+    <style>
+
+
+    </style>
+
+</head>
+<body  ng-controller="appCtrl">
+
+<nav class="navbar navbar-default navbar-fixed-top" >
+    <div class="container-fluid">
+        <form class="navbar-form navbar-left">
+            <div class="form-group">
+                <label class="control-label">楼名:</label>
+                <s:select name="buildingId"  cssClass="form-control" id="buildingId"
+                          list="buildingList" listKey="key" listValue="value" />
+            </div>
+
+
+            <div class="form-group">
+                <label class="checkbox">
+                    有
+                    <input type="checkbox" ng-model="emptyBed"/>
+                </label>
+
+            </div>
+            <div class="form-group">
+                <button  class="btn btn-primary" ng-click="search()">查询</button>
+            </div>
+
+        </form>
+    </div><!-- /.container-fluid -->
+
+</nav>
+<div class="container-fluid" style="display:none;margin-top:50px"  id="container" >
+
+
+</div>
+
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="bower_components/lodash/dist/lodash.min.js"></script>
+<script src="bower_components/restangular/dist/restangular.min.js"></script>
+
+
+<script type="text/javascript">
+
+
+    'use strict';
+    var app = angular.module('app', [
+        'restangular',
+
+    ]);
+
+
+
+    angular.module('app')
+        .config(config);
+
+    /** @ngInject */
+    function config($httpProvider
+        ,RestangularProvider
+
+    ) {
+        RestangularProvider.setBaseUrl('api');
+    }
+
+
+    angular.module('app').controller('appCtrl', function ($scope,$interval,$log,$http,$httpParamSerializerJQLike, $sce,$timeout) {
+
+
+    });
+</script>
+
+</body>
+
+</html>
