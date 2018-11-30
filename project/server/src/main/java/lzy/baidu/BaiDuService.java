@@ -111,6 +111,7 @@ public class BaiDuService {
                 fileInfo.setInvoiceCode(words_result.getString("InvoiceCode"));
                 fileInfo.setInvoiceNum(words_result.getString("InvoiceNum"));
                 fileInfo.setTaxiNum(words_result.getString("TaxiNum"));
+                fileInfo.setTime(words_result.getString("Time"));
             }
 
 
