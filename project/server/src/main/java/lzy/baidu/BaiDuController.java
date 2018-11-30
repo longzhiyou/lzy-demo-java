@@ -26,8 +26,8 @@ public class BaiDuController {
     @GetMapping(value = "/ocr")
     public ResponseEntity ocr() {
         String image = "d:\\taxi.jpg";
-        baiDuService.ocr(image);
-        return new ResponseEntity(HttpStatus.OK);
+        List<FileInfo> fileInfos = baiDuService.taxiOcr();
+        return new ResponseEntity(fileInfos,HttpStatus.OK);
 
     }
 

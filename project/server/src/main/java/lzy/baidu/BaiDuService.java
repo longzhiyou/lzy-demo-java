@@ -5,7 +5,6 @@ import com.baidu.aip.ocr.AipOcr;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,7 +13,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -40,12 +38,12 @@ public class BaiDuService {
                     .filter(path -> !path.equals(this.rootLocation))
                     .map(path -> this.rootLocation.relativize(path));
 
-//            Files.walk(Paths.get(SOURCEDIR)).filter(Files::isRegularFile).forEach(filePath ->{
+//            Files.walk(Paths.get(SOURCEDIR)).filter(Files::isRegularFile).forEach(absolutePath ->{
 //
-//                String name=filePath.getFilename().toString();
+//                String name=absolutePath.getFilename().toString();
 //
 //                if (name.startWith("_O"){
-//                    System.out.println(filePath.getFileName());
+//                    System.out.println(absolutePath.getFileName());
 //                }
 //
 //            });
@@ -59,6 +57,7 @@ public class BaiDuService {
                             System.out.println(filePath.getFileName());
                             FileInfo fileInfo = new FileInfo();
                             fileInfo.setFileName(filePath.getFileName().toString());
+                            fileInfo.setAbsolutePath(rootLocation.toAbsolutePath().toString()+"\\"+filePath.getFileName());
                             fileInfos.add(fileInfo);
                         }
                     }
@@ -77,7 +76,7 @@ public class BaiDuService {
 
     }
 
-    public void ocr(String image){
+    public List<FileInfo> taxiOcr(){
 
 
         //临时设置APPID/AK/SK,以后从数据库获取
@@ -99,8 +98,27 @@ public class BaiDuService {
         // 调用接口
         // 参数为本地路径
 
-        JSONObject res = client.taxiReceipt(image, options);
-        System.out.println(res.toString(2));
+        List<FileInfo> fileInfos = loadAll();
+        for (FileInfo fileInfo : fileInfos) {
+            JSONObject res = client.taxiReceipt(fileInfo.getAbsolutePath(), options);
+            System.out.println(res.toString(2));
+
+            JSONObject words_result = res.getJSONObject("words_result");
+            if (words_result!=null) {
+
+                fileInfo.setDate(words_result.getString("Date"));
+                fileInfo.setFare(words_result.getString("Fare"));
+                fileInfo.setInvoiceCode(words_result.getString("InvoiceCode"));
+                fileInfo.setInvoiceNum(words_result.getString("InvoiceNum"));
+                fileInfo.setTaxiNum(words_result.getString("TaxiNum"));
+            }
+
+
+        }
+
+        return fileInfos;
+
+
 
 
 
