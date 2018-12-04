@@ -5,6 +5,7 @@ import com.baidu.aip.ocr.AipOcr;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -74,6 +75,62 @@ public class BaiDuService {
 
         return fileInfos;
 
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<FileInfo> repeatFlag(List<FileInfo> infos) {
+
+//        for (int i = 0; i < infos.size(); i++) {
+//            FileInfo iIinfo = infos.get(i);
+//            iIinfo.setTaxiNum(String.format("%d",i));
+//
+//            if (i==2) {
+//                iIinfo.setTaxiNum("0");
+//            }
+//
+//            if (i==4) {
+//                iIinfo.setTaxiNum("1");
+//            }
+//            if (i==5) {
+//                iIinfo.setTaxiNum("2");
+//            }
+//        }
+//
+
+        for (int i = 0; i < infos.size(); i++) {
+            FileInfo iIinfo = infos.get(i);
+            iIinfo.setNo(i+1);
+            for (int j = i+1; j < infos.size(); j++) {
+                FileInfo jIinfo = infos.get(j);
+
+                if (!StringUtils.isEmpty(iIinfo.getTaxiNum())&&!StringUtils.isEmpty(jIinfo.getTaxiNum())) {
+                    if (iIinfo.getTaxiNum().equals(jIinfo.getTaxiNum())) {
+
+//                        iIinfo.setTaxiNumRepeatText("车牌号重复");
+                        iIinfo.setTaxiNumRepeat(true);
+
+//                        jIinfo.setTaxiNumRepeatText("车牌号重复");
+                        jIinfo.setTaxiNumRepeat(true);
+                    }
+                }
+
+                if (!StringUtils.isEmpty(iIinfo.getDate())&&!StringUtils.isEmpty(jIinfo.getDate())) {
+                    if (iIinfo.getDate().equals(jIinfo.getDate())) {
+
+//                        iIinfo.setDateRepeatText("日期重复");
+                        iIinfo.setDateRepeat(true);
+
+//                        jIinfo.setDateRepeatText("日期重复");
+                        jIinfo.setDateRepeat(true);
+                    }
+                }
+            }
+        }
+
+        return infos;
     }
 
     public List<FileInfo> taxiOcr(){

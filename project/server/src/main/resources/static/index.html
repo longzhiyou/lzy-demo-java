@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link href="bower_components/mdui/dist/css/mdui.css">
-    <script src="bower_components/mdui/dist/js/mdui.js"></script>
+    <link  rel="stylesheet" href="bower_components/mdui/dist/css/mdui.min.css">
+
 
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="bower_components/font-awesome/web-fonts-with-css/css/fontawesome.min.css" />
@@ -24,6 +24,9 @@
 <body ng-controller="appCtrl">
 
     <nav class="navbar navbar-default">
+        <div id="progress" style="display:none;" class="mdui-progress " ng-show="showProgress">
+            <div class="mdui-progress-indeterminate mdui-color-pink-accent"></div>
+        </div>
         <div class="container-fluid">
 
 
@@ -38,34 +41,42 @@
 
     </nav>
     <div class="container-fluid">
-        <div id="progress" style="display:none;" class="mdui-progress " ng-show="showProgress">
-            <div class="mdui-progress-indeterminate mdui-color-pink-accent"></div>
-        </div>
+
         <div class="panel panel-default">
+
             <div class="panel-body">
-                <table class="table">
+                <table st-table="displayedCollection" st-safe-src="rowCollection" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>文件名</th>
+                        <th>车牌号</th>
+                        <th>日期</th>
+                        <th>上下车时间</th>
+                        <th>发票号码</th>
+                        <th>状态</th>
+                    </tr>
+                    <tr>
+                        <th colspan="7"><input st-search="" class="form-control" placeholder="全局查询  ..." type="text"/></th>
+                    </tr>
+                    </thead>
                     <tbody>
-                        <tr>
-                            <th>#</th>
-                            <th>文件名</th>
-                            <th>车牌号</th>
-                            <th>日期</th>
-                            <th>上下车时间</th>
-                            <th>发票号码</th>
-                        </tr>
-
-                        <tr class="primary" ng-repeat="item in fileInfos  track by $index ">
-                            <td>{{ $index+1 }}</td>
-                            <td>{{item.fileName}}</td>
-                            <td>{{item.taxiNum}}</td>
-                            <td>{{item.date}}</td>
-                            <td>{{item.time}}</td>
-                            <td>{{item.invoiceNum}}</td>
-
-                        </tr>
-
+                    <tr ng-repeat="item in displayedCollection">
+                        <td>{{item.no}}</td>
+                        <td>{{item.fileName}}</td>
+                        <td>
+                            <span>{{item.taxiNum}}</span>
+                        </td>
+                        <td>{{item.date}}</td>
+                        <td>{{item.time}}</td>
+                        <td>{{item.invoiceNum}}</td>
+                        <td>
+                            <span class="label label-danger" ng-if="item.taxiNumRepeat">车牌号重复</span>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
+
             </div>
         </div>
 
@@ -74,6 +85,8 @@
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
+
+    <script src="bower_components/mdui/dist/js/mdui.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script src="bower_components/lodash/dist/lodash.min.js"></script>
@@ -84,6 +97,7 @@
         'use strict';
         var app = angular.module('app', [
             'restangular',
+            'smart-table',
 
 
         ]);
@@ -102,6 +116,10 @@
 
 
         angular.module('app').controller('appCtrl', function ($scope, Restangular,$timeout) {
+
+            $scope.rowCollection = [];
+
+
             $scope.showProgress = false;
             $scope.doShowProgress=function (show) {
                 $timeout(function(){
@@ -113,11 +131,14 @@
 
             $scope.search=function(){
                 $("#progress").show();
+                $scope.doShowProgress(true);
+
                 Restangular.all('/baidu/ocr').getList()  // GET: /users
                     .then(function(fileInfos) {
                         // returns a list of users
                         $scope.doShowProgress(false);
-                        $scope.fileInfos = fileInfos; // first Restangular obj in list: { id: 123 }
+                        // $scope.fileInfos = fileInfos; // first Restangular obj in list: { id: 123 }
+                        $scope.rowCollection = fileInfos; // first Restangular obj in list: { id: 123 }
                     })
             }
 

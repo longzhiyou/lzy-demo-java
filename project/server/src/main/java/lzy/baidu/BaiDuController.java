@@ -27,6 +27,9 @@ public class BaiDuController {
     public ResponseEntity ocr() {
         String image = "d:\\taxi.jpg";
         List<FileInfo> fileInfos = baiDuService.taxiOcr();
+
+//        List<FileInfo> fileInfos = baiDuService.loadAll();
+        baiDuService.repeatFlag(fileInfos);
         return new ResponseEntity(fileInfos,HttpStatus.OK);
 
     }
