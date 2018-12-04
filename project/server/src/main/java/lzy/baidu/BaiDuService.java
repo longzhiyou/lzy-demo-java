@@ -109,10 +109,10 @@ public class BaiDuService {
                 if (!StringUtils.isEmpty(iIinfo.getTaxiNum())&&!StringUtils.isEmpty(jIinfo.getTaxiNum())) {
                     if (iIinfo.getTaxiNum().equals(jIinfo.getTaxiNum())) {
 
-//                        iIinfo.setTaxiNumRepeatText("车牌号重复");
+                        iIinfo.setTaxiNumRepeatText("车牌号重复");
                         iIinfo.setTaxiNumRepeat(true);
 
-//                        jIinfo.setTaxiNumRepeatText("车牌号重复");
+                        jIinfo.setTaxiNumRepeatText("车牌号重复");
                         jIinfo.setTaxiNumRepeat(true);
                     }
                 }
@@ -120,10 +120,10 @@ public class BaiDuService {
                 if (!StringUtils.isEmpty(iIinfo.getDate())&&!StringUtils.isEmpty(jIinfo.getDate())) {
                     if (iIinfo.getDate().equals(jIinfo.getDate())) {
 
-//                        iIinfo.setDateRepeatText("日期重复");
+                        iIinfo.setDateRepeatText("日期重复");
                         iIinfo.setDateRepeat(true);
 
-//                        jIinfo.setDateRepeatText("日期重复");
+                        jIinfo.setDateRepeatText("日期重复");
                         jIinfo.setDateRepeat(true);
                     }
                 }
