@@ -1,3 +1,6 @@
+### 安全
+- [REST Security Insecure direct object references 不安全的直接对象引用](https://github.com/NationalBankBelgium/REST-API-Design-Guide/wiki/REST-Security-Insecure-direct-object-references)
+
 ### 工具
 - [ASCII文字，SpringBoot自定义启动Banner在线生成工具](http://www.bootschool.net/ascii)
 ## tcp
@@ -12,6 +15,7 @@
 - 文件命名全部采取首字母大写
 
 ## Restful为核心进行设计
+- [REST-API-Design-Guide](https://github.com/NationalBankBelgium/REST-API-Design-Guide/wiki/REST-Constraints)
 
 ### 参考
 | HTTP 方法| URI| 作用|参数|返回码|返回值|

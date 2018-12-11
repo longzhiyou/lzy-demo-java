@@ -1,37 +1,28 @@
 package lzy.common.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+
 /**
- * 
- * <h2>BaseIdEntity</h2>
- * 
- * @author lzy
- * 
- *         MappedSuperclass that extends the {@link BaseEntity} class and is
- *         extended by entity classes that have ID field of type int
  *
+ * 快速实现时使用此类,默认主键名称都是id
+ * [2017-01-16 add by longzhiyou]
  */
 
-@Getter
-@Setter
 @MappedSuperclass
-@NoArgsConstructor
-@AllArgsConstructor
-public class BaseIdEntity extends BaseEntity {
-
-	private static final long serialVersionUID = 1L;
+@EqualsAndHashCode(callSuper=true)
+@Data
+public abstract class BaseIdEntity extends BaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	protected int id;
+	@GenericGenerator(name = "idGenerator", strategy = "lzy.common.entity.IdGenerator")
+	@GeneratedValue(generator = "idGenerator")
+	private Long id;
 
 }
