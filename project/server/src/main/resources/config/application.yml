@@ -1,6 +1,6 @@
 
 server:
-  port: ${port:3008}
+  port: ${port:3009}
 
 storage:
   location: upload-dir
@@ -18,7 +18,7 @@ spring:
 
   datasource:
 
-      url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=convertToNull
+      url: jdbc:mysql://127.0.0.1:3306/demo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=convertToNull
       username: lzy
       password: 123456
       driverClassName:  com.mysql.jdbc.Driver
@@ -32,7 +32,7 @@ spring:
     hibernate:
           naming:
             strategy: org.hibernate.cfg.ImprovedNamingStrategy
-          ddl-auto: none
+          ddl-auto: update
     show-sql: true
   http:
     multipart:
@@ -60,6 +60,6 @@ logging:
 # JWT
 jwt:
   tokenHeader: Authorization
-  secret: bestskip
+  secret: longzhiyou
   expiration: 31536000
 

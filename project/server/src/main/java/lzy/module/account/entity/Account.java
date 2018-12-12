@@ -3,10 +3,14 @@ package lzy.module.account.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lzy.common.entity.BaseEntity;
 import lzy.common.entity.BaseIdEntity;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  *  账户
@@ -24,9 +28,13 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper=true)
 @Data
 @Entity
-public class Account extends BaseIdEntity {
+public class Account extends BaseEntity {
+    @Id
+    @GenericGenerator(name = "idGenerator", strategy = "lzy.common.entity.IdGenerator")
+    @GeneratedValue(generator = "idGenerator")
+    private Long accountId;
 
-
+    String name;
 
 //    账户使用的货币类型，注意虽然一张银行卡可以支持多个币种，实际在内部，还是针对每个币种建立独立的子账户。涉及到多币种的账户，也可以采用类似的建模方案。
 //    会计科目代码，一般是一级会计科目的代码。
