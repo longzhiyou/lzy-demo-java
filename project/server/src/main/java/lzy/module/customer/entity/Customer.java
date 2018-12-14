@@ -3,7 +3,7 @@ package lzy.module.customer.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lzy.ddd.entity.PersonEntity;
+import lzy.infrastructure.entity.PersonEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Where;
 

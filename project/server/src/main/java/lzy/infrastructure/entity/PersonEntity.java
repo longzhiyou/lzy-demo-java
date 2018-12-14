@@ -1,4 +1,4 @@
-package lzy.ddd.entity;
+package lzy.infrastructure.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
