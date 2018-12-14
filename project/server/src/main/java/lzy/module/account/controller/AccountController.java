@@ -20,14 +20,15 @@ import static lzy.common.domain.GrantedAuthorityDefine.P_DELETED;
 
 @RestController
 @RequestMapping(value = CommonDefine.BASE_URI+"/accounts")
+@PreAuthorize(value =P_DELETED)
 public class AccountController {
     Logger logger = LoggerFactory.getLogger(AccountController.class);
 
     @GetMapping()
-    @PreAuthorize(value =P_DELETED)
+//    @PreAuthorize(value =P_DELETED)
     public ResponseEntity index() {
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity("P_DELETED",HttpStatus.OK);
 
     }
 
