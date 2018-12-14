@@ -9,7 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * Time: 20:04
  */
 //@CacheConfig(cacheNames = "users")
-public interface UserRepository extends PagingAndSortingRepository<User, Integer> {
+public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     //将缓存保存进andCache，并使用参数中的bid加上一个字符串(这里使用方法名称)作为缓存的key
 //    @Cacheable(value="findFirstByUsername")

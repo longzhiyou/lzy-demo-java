@@ -5,15 +5,22 @@ import lzy.sys.auth.domain.RegisterUser;
 import lzy.sys.auth.domain.UserInfo;
 import lzy.sys.auth.entity.User;
 import lzy.sys.auth.repository.UserRepository;
+import lzy.sys.auth.repository.UserRepositoryMybatis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 系统认证服务
@@ -26,9 +33,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthService {
 
 
-    private static final Logger log = LoggerFactory.getLogger(AuthService.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserRepositoryMybatis userRepositoryMybatis;
+
+
 
 //    User register(User userToAdd);
 //    String login(String username, String password);
@@ -36,17 +49,44 @@ public class AuthService {
 
 
     //将缓存保存进andCache，并使用参数中的bid加上一个字符串(这里使用方法名称)作为缓存的key
-    @Cacheable(value="andCache",key="#username+'findUser'")
-    public User findUser(String username){
+    @Cacheable(value="userCache",key="#username+'findUser'")
+    public UserInfo findUser(String username){
 
         User user = userRepository.findFirstByUsername(username);
-        return user;
+        if (null==user) {
+            return null;
+        }
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUsername(user.getUsername());
+        userInfo.setPassword(user.getPassword());
+        userInfo.setEnabled(user.getEnabled());
+
+        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+        List<String> permissions = userRepositoryMybatis.findPermissions(user.getUserId());
+        for (String permission : permissions) {
+            authorities.add(new SimpleGrantedAuthority(permission));
+        }
+
+        logger.info("【authorities】"+authorities.toString());
+        userInfo.setAuthorities(authorities);
+
+        return userInfo;
     }
+
+//    @Cacheable(value="andCache",key="#user.username+'findPermission'")
+    public List<String> findPermission(User user){
+
+        List<String> permissions = userRepositoryMybatis.findPermissions(user.getUserId());
+        return permissions;
+    }
+
 
     //清除掉全部缓存
 //    @CacheEvict(value="andCache",allEntries=true,beforeInvocation=true)
     //清除掉指定key中的缓存
-    @CacheEvict(value="andCache",key="#user.username + 'findUser'")
+    @CacheEvict(value="userCache",key="#user.username + 'findUser'")
     public UserInfo addUser(RegisterUser user){
 
 //        log.info("清除指定缓存"+user.getUsername()+"findFirstByUsername");
@@ -55,9 +95,8 @@ public class AuthService {
 //        if (!LicenseGenerator.matches(user.getLicense())){
 //            throw new UnauthorizedException("序列号不正确");
 //        }
-
-        User entity = findUser(user.getUsername());
-      if (null!=entity) {
+        User entity = userRepository.findFirstByUsername(user.getUsername());
+        if (null!=entity) {
           throw new UnauthorizedException("用户名已存在");
         }
 

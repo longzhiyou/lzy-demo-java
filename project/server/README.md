@@ -1,3 +1,8 @@
+### ACL
+- 用户有几个角色
+- 一个角色包含不同的权限
+- user:role:permission
+
 ### 安全
 - [REST Security Insecure direct object references 不安全的直接对象引用](https://github.com/NationalBankBelgium/REST-API-Design-Guide/wiki/REST-Security-Insecure-direct-object-references)
 

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lzy.common.entity.BaseEntity;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -23,7 +24,8 @@ import javax.persistence.Id;
 @Entity
 public class User extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "idGenerator", strategy = "lzy.common.entity.IdGenerator")
+    @GeneratedValue(generator = "idGenerator")
     private Long userId;
 
 
@@ -33,6 +35,6 @@ public class User extends BaseEntity {
     @Length(min=6,message="密码长度不能小于6位")
     private String password;
 
-    private Boolean enabled;
+    private Boolean enabled=false;
 
 }
