@@ -1,6 +1,6 @@
-package lzy.ddd.customer.repository;
+package lzy.module.customer.repository;
 
-import lzy.ddd.customer.entity.Customer;
+import lzy.module.customer.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

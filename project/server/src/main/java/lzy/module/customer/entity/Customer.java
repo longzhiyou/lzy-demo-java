@@ -1,4 +1,4 @@
-package lzy.ddd.customer.entity;
+package lzy.module.customer.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

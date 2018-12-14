@@ -36,13 +36,14 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
-public class ResponseMessage {
-
+public class ResponseDetailMessage {
 
     String type;
     String title;
     String titleKey;
-    //ResponseDetailMessage[]
-    Object errors;
+    String detail;
+    String detailKey;
+    String identifier;
+    Object fields;
 
 }
