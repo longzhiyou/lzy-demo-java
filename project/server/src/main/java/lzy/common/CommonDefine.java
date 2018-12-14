@@ -7,9 +7,7 @@ package lzy.common;
  */
 public interface CommonDefine {
 
-    String BASE_URI = "/api";
-    String NOT_DELETED = "deleted_on IS NULL  OR deleted_on > CURRENT_TIMESTAMP";
-    String DELETED_FIELD = "deletedOn";
+    String BASE_URI = "/api/v1";
     int PASSWORD_ENCODER_STRENGTH=4;
 
 

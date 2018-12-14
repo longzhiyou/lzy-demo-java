@@ -10,7 +10,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.7.RELEASE</version>
+        <version>1.5.18.RELEASE</version>
     </parent>
 
     <dependencies>
@@ -119,6 +119,11 @@
             <version>4.1.6</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter-basic</artifactId>
+            <version>6.4.0</version>
+        </dependency>
 
         <dependency>
             <groupId>cn.hutool</groupId>
