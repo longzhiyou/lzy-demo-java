@@ -1,5 +1,6 @@
 package lzy.common.domain;
 
+
 /**
  * 权限定义类
  * User: longzhiyou
@@ -13,4 +14,14 @@ public interface GrantedAuthorityDefine {
     //    @PreAuthorize("hasAuthority('P_DELETED')")
 
     String P_DELETED = "hasAuthority('P_DELETED')";
+
+
+    /**
+     * 命名规则 P_M_O
+     * P:权限
+     * M:业务上的模块
+     * O:操作 包括CRUD
+     * [2018-12-14 add by longzhiyou]
+     */
+    String P_ACCOUNT_D= "hasAuthority('P_ACCOUNT_D')";
 }
