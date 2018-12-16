@@ -2,6 +2,8 @@ package lzy.common.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.GeneratedValue;
@@ -16,8 +18,9 @@ import javax.persistence.MappedSuperclass;
  */
 
 @MappedSuperclass
-@EqualsAndHashCode(callSuper=true)
-@Data
+//@EqualsAndHashCode(callSuper=true)
+@Getter
+@Setter
 public abstract class BaseIdEntity extends BaseEntity {
 
 	@Id

@@ -16,11 +16,11 @@ public interface UserRepositoryMybatis  {
 
     @Select("SELECT " +
             "permission.name" +
-            " FROM role_user " +
-            " LEFT JOIN permission_role ON permission_role.role_id = role_user.role_id"+
+            " FROM user_role " +
+            " LEFT JOIN permission_role ON permission_role.role_id = user_role.role_id"+
             " LEFT JOIN permission ON permission.id = permission_role.permission_id"+
             " WHERE "+
-            " role_user.user_id=#{id} "+
+            " user_role.user_id=#{id} "+
             " GROUP BY permission.name "
     )
     List<String> findPermissions(@Param("id") Long id);
