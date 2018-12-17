@@ -3,6 +3,7 @@ package lzy.sys.auth.entity;
 import lombok.*;
 import lzy.common.entity.BaseIdEntity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import java.util.Set;
@@ -22,7 +23,7 @@ public class Permission extends BaseIdEntity {
 
     private String name;
 
-    @ManyToMany(mappedBy ="permissions")
+    @ManyToMany(mappedBy ="permissions",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Role> roles;
 
 }

@@ -20,10 +20,10 @@ public class Role extends BaseIdEntity {
 
     private String name;
 
-    @ManyToMany(mappedBy ="roles")
+    @ManyToMany(mappedBy ="roles",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<User> users;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "role_permission",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id"))

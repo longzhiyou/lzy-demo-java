@@ -1,16 +1,4 @@
-### ACL
-- 用户有几个角色
-- 一个角色包含不同的权限
-- user:role:permission
 
-### 安全
-- [REST Security Insecure direct object references 不安全的直接对象引用](https://github.com/NationalBankBelgium/REST-API-Design-Guide/wiki/REST-Security-Insecure-direct-object-references)
-
-### 工具
-- [ASCII文字，SpringBoot自定义启动Banner在线生成工具](http://www.bootschool.net/ascii)
-## tcp
-### 参考
-- [Netty——高级内置解码器、编码器、ByteBuf](http://www.cnblogs.com/lemon-flm/p/7813854.html)
 
 
 ### 命名约定
@@ -77,11 +65,23 @@
 - 422 Unprocesable entity - [POST/PUT/PATCH] 当创建一个对象时，发生一个验证错误。
 - 500 INTERNAL SERVER ERROR - [*]：服务器发生错误，用户将无法判断发出的请求是否成功。
 
+### ACL
+- 用户有几个角色
+- 一个角色包含不同的权限
+- user:role:permission
+
+### 安全
+- [REST Security Insecure direct object references 不安全的直接对象引用](https://github.com/NationalBankBelgium/REST-API-Design-Guide/wiki/REST-Security-Insecure-direct-object-references)
+
+### 工具
+- [ASCII文字，SpringBoot自定义启动Banner在线生成工具](http://www.bootschool.net/ascii)
+## tcp
+### 参考
+- [Netty——高级内置解码器、编码器、ByteBuf](http://www.cnblogs.com/lemon-flm/p/7813854.html)
+
 ### 日志相关
 - [Spring Boot干货系列：（七）默认日志框架配置](http://blog.csdn.net/gebitan505/article/details/70142155?locationNum=1&fps=1)
 
-
-# logistics
 
 ### [物资管理](http://wiki.mbalib.com/wiki/%E7%89%A9%E8%B5%84%E7%AE%A1%E7%90%86)
 - [物资计划制订](http://wiki.mbalib.com/wiki/%E7%89%A9%E8%B5%84%E8%AE%A1%E5%88%92)

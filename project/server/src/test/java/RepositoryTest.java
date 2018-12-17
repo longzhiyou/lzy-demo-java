@@ -6,6 +6,8 @@ import lzy.demo.PublisherRepository;
 import lzy.sys.auth.entity.Permission;
 import lzy.sys.auth.entity.Role;
 import lzy.sys.auth.entity.User;
+import lzy.sys.auth.repository.PermissionRepository;
+import lzy.sys.auth.repository.RoleRepository;
 import lzy.sys.auth.repository.UserRepository;
 import lzy.sys.auth.repository.UserRepositoryMybatis;
 import org.junit.Test;
@@ -37,6 +39,15 @@ public class RepositoryTest {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    RoleRepository roleRepository;
+
+
+    @Autowired
+    PermissionRepository permissionRepository;
+
+
+
 
     @Autowired
     private UserRepositoryMybatis userRepositoryMybatis;
@@ -50,19 +61,115 @@ public class RepositoryTest {
     @Test
     @Transactional
     @Rollback(false)
-    public void user(){
-        User one = userRepository.findOne(2L);
+    public void deleteUser(){
+        userRepository.delete(1074544313280495616L);
+    }
 
-        Set<Role> roles = one.getRoles();
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void deleteRole(){
+        roleRepository.delete(1074543349504933888L);
+    }
 
-       for (Role role: roles){
-           Set<Permission> permissions = role.getPermissions();
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void deletePermission(){
+        permissionRepository.delete(1074544313523765248L);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
+    public void initPermission(){
 
 
-       }
+        //新增两个用户 1.longzhiyou 2.lzy
+        User longzhiyou = new User();
+        longzhiyou.setUsername("longzhiyou");
+
+        User lzy = new User();
+        lzy.setUsername("lzy");
+
+        userRepository.save(longzhiyou);
+        userRepository.save(lzy);
+
+        //角色 user admin manager
+        Role role1 = new Role();
+        role1.setName("user");
+        roleRepository.save(role1);
+        Role role2 = new Role();
+        role2.setName("admin");
+        roleRepository.save(role2);
+        Role role3 = new Role();
+        role3.setName("manager");
+        roleRepository.save(role3);
 
 
-        logger.info(one.toString());
+        //权限
+        Permission permission = new Permission();
+        permission.setName("P_ACCOUNT");
+        permissionRepository.save(permission);
+
+        Permission permission1 = new Permission();
+        permission1.setName("P_ACCOUNT_C");
+        permissionRepository.save(permission1);
+
+        Permission permission2 = new Permission();
+        permission2.setName("P_ACCOUNT_R");
+        permissionRepository.save(permission2);
+
+
+        Permission permission3 = new Permission();
+        permission3.setName("P_ACCOUNT_U");
+        permissionRepository.save(permission3);
+
+        Permission permission4 = new Permission();
+        permission4.setName("P_ACCOUNT_D");
+        permissionRepository.save(permission4);
+
+        Set<Permission> permissions = new HashSet<>();
+        permissions.add(permission);
+        permissions.add(permission2);
+        role1.setPermissions(permissions);
+
+        Set<Permission> permissions1 = new HashSet<>();
+        permissions1.add(permission);
+        permissions1.add(permission1);
+        permissions1.add(permission2);
+        permissions1.add(permission3);
+        permissions1.add(permission4);
+        role2.setPermissions(permissions1);
+
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(role1);
+        lzy.setRoles(roles);
+        userRepository.save(lzy);
+
+        Set<Role> roles1 = new HashSet<>();
+        roles1.add(role2);
+        roles1.add(role3);
+        longzhiyou.setRoles(roles1);
+        userRepository.save(longzhiyou);
+
+
+
+
+
+//        User one = userRepository.findOne(2L);
+//
+//        Set<Role> roles = one.getRoles();
+//
+//       for (Role role: roles){
+//           Set<Permission> permissions = role.getPermissions();
+//
+//
+//       }
+//
+//
+//        logger.info(one.toString());
     }
 
 
