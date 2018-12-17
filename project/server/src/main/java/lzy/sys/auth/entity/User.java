@@ -26,12 +26,12 @@ public class User extends BaseEntity {
     @GeneratedValue(generator = "idGenerator")
     private Long userId;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 //    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @OrderBy("id")
+//    @OrderBy("id")
     private Set<Role> roles;
 
     @NotEmpty(message="姓名不能为空")

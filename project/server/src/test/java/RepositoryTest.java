@@ -62,21 +62,23 @@ public class RepositoryTest {
     @Transactional
     @Rollback(false)
     public void deleteUser(){
-        userRepository.delete(1074544313280495616L);
+        User one = userRepository.findOne(1074593763382263808L);
+        roleRepository.delete(one.getRoles());
+        userRepository.delete(one);
     }
 
     @Test
     @Transactional
     @Rollback(false)
     public void deleteRole(){
-        roleRepository.delete(1074543349504933888L);
+        roleRepository.delete(1074591345483448320L);
     }
 
     @Test
     @Transactional
     @Rollback(false)
     public void deletePermission(){
-        permissionRepository.delete(1074544313523765248L);
+        permissionRepository.delete(1074591345558945792L);
     }
 
     @Test

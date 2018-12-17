@@ -18,12 +18,18 @@ import java.util.Set;
 @Entity
 public class Role extends BaseIdEntity {
 
+    private String title;
     private String name;
 
-    @ManyToMany(mappedBy ="roles",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @ManyToMany(mappedBy ="roles",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "role_permission",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id"))
