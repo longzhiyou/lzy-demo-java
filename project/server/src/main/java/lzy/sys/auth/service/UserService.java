@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -30,13 +31,18 @@ import java.util.List;
  */
 @Service
 @Transactional()
-public class AuthService {
+public class UserService {
 
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
+//    @Autowired
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Autowired
     private UserRepositoryMybatis userRepositoryMybatis;
@@ -49,7 +55,7 @@ public class AuthService {
 
 
     //将缓存保存进andCache，并使用参数中的bid加上一个字符串(这里使用方法名称)作为缓存的key
-    @Cacheable(value="userCache",key="#username+'findUser'")
+//    @Cacheable(value="userCache",key="#username+'findUser'")
     public UserInfo findUser(String username){
 
         User user = userRepository.findFirstByUsername(username);
@@ -62,7 +68,7 @@ public class AuthService {
         userInfo.setPassword(user.getPassword());
         userInfo.setEnabled(user.getEnabled());
 
-        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        Collection<GrantedAuthority> authorities = new HashSet<>();
 
         List<String> permissions = userRepositoryMybatis.findPermissions(user.getUserId());
         for (String permission : permissions) {

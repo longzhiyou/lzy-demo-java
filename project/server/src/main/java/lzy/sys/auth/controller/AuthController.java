@@ -4,9 +4,8 @@ package lzy.sys.auth.controller;
 import lzy.common.CommonDefine;
 import lzy.sys.auth.domain.LoginUser;
 import lzy.sys.auth.domain.RegisterUser;
-import lzy.sys.auth.domain.SoftSerial;
 import lzy.sys.auth.domain.UserInfo;
-import lzy.sys.auth.service.AuthService;
+import lzy.sys.auth.service.UserService;
 import lzy.sys.security.jwt.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,7 +40,7 @@ public class AuthController {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    private AuthService authService;
+    private UserService userService;
 
 
 
@@ -80,7 +79,7 @@ public class AuthController {
     @RequestMapping(method= RequestMethod.POST,consumes = "application/json",value = "/register")
     public UserInfo jsonRegister(@Valid @RequestBody RegisterUser user) {
 
-        UserInfo userInfo = authService.addUser(user);
+        UserInfo userInfo = userService.addUser(user);
         final String token = jwtTokenUtil.generateTokenByUsername(user.getUsername());
         userInfo.setToken(token);
         return userInfo;

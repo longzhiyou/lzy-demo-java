@@ -17,8 +17,8 @@ public interface UserRepositoryMybatis  {
     @Select("SELECT " +
             "permission.name" +
             " FROM user_role " +
-            " LEFT JOIN permission_role ON permission_role.role_id = user_role.role_id"+
-            " LEFT JOIN permission ON permission.id = permission_role.permission_id"+
+            " LEFT JOIN role_permission ON role_permission.role_id = user_role.role_id"+
+            " LEFT JOIN permission ON permission.id = role_permission.permission_id"+
             " WHERE "+
             " user_role.user_id=#{id} "+
             " GROUP BY permission.name "

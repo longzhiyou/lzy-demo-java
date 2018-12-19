@@ -70,6 +70,17 @@ public class RepositoryTest {
     @Test
     @Transactional
     @Rollback(false)
+    public void updateUserRole(){
+        User one = userRepository.findOne(1074593763520675840L);
+        one.setRoles(null);
+        userRepository.save(one);
+
+//        roleRepository.delete(1074591345483448320L);
+    }
+
+    @Test
+    @Transactional
+    @Rollback(false)
     public void deleteRole(){
         roleRepository.delete(1074591345483448320L);
     }

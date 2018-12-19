@@ -1,7 +1,8 @@
 package lzy.sys.security;
 
 
-import lzy.sys.auth.service.AuthService;
+import lzy.sys.auth.domain.UserInfo;
+import lzy.sys.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,7 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 //    private UserRepository userRepository;
 
     @Autowired
-    private AuthService authService;
+    private UserService userService;
 
 
 
@@ -28,7 +29,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
 
 
-        return authService.findUser(username);
+        UserInfo user = userService.findUser(username);
+        return user;
 
 //        UserInfo user = authService.findUser(username);
 //        if (null==userEntity) {
