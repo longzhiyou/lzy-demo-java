@@ -100,10 +100,10 @@ public class RepositoryTest {
 
         //新增两个用户 1.longzhiyou 2.lzy
         User longzhiyou = new User();
-        longzhiyou.setUsername("longzhiyou");
+        longzhiyou.setUsername("admin");
 
         User lzy = new User();
-        lzy.setUsername("lzy");
+        lzy.setUsername("user");
 
         userRepository.save(longzhiyou);
         userRepository.save(lzy);

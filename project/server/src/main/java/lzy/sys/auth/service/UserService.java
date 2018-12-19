@@ -3,6 +3,8 @@ package lzy.sys.auth.service;
 import lzy.common.exception.UnauthorizedException;
 import lzy.sys.auth.domain.RegisterUser;
 import lzy.sys.auth.domain.UserInfo;
+import lzy.sys.auth.entity.Permission;
+import lzy.sys.auth.entity.Role;
 import lzy.sys.auth.entity.User;
 import lzy.sys.auth.repository.UserRepository;
 import lzy.sys.auth.repository.UserRepositoryMybatis;
@@ -18,10 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * 系统认证服务
@@ -68,15 +67,29 @@ public class UserService {
         userInfo.setPassword(user.getPassword());
         userInfo.setEnabled(user.getEnabled());
 
-        Collection<GrantedAuthority> authorities = new HashSet<>();
+        Collection<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
-        List<String> permissions = userRepositoryMybatis.findPermissions(user.getUserId());
-        for (String permission : permissions) {
-            authorities.add(new SimpleGrantedAuthority(permission));
+        //不重复的字符串
+        Set<String> authorities =  new HashSet<>();
+        Set<Role> roles = user.getRoles();
+
+           for (Role role: roles){
+               authorities.add(role.getName());
+
+               Set<Permission> permissions = role.getPermissions();
+               for (Permission permission: permissions){
+                   authorities.add(permission.getName());
+               }
+
+           }
+
+//        List<String> permissions = userRepositoryMybatis.findPermissions(user.getUserId());
+        for (String permission : authorities) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(permission));
         }
 
-        logger.info("【authorities】"+authorities.toString());
-        userInfo.setAuthorities(authorities);
+        logger.info("【authorities】"+grantedAuthorities.toString());
+        userInfo.setAuthorities(grantedAuthorities);
 
         return userInfo;
     }
