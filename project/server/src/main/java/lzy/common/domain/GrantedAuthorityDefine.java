@@ -13,9 +13,9 @@ public interface GrantedAuthorityDefine {
     //    @PreAuthorize("hasRole('P_DELETED')")
     //    @PreAuthorize("hasAuthority('P_DELETED')")
 
-    String ROLE_ADMIN = "hasRole('ROLE_ADMIN')";
-    String ROLE_DBA = "hasRole('ROLE_DBA')";
-    String ROLE_USER = "hasRole('ROLE_USER')";
+    String ROLE_ADMIN = "hasRole('ADMIN')";
+    String ROLE_DBA = "hasRole('DBA')";
+    String ROLE_USER = "hasRole('USER')";
 
     String P_DELETED = "hasAuthority('P_DELETED')";
 

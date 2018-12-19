@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static lzy.common.domain.GrantedAuthorityDefine.ROLE_ADMIN;
+
 /**
  * User: longzhiyou
  * Date: 2018/11/26
@@ -19,7 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = CommonDefine.BASE_URI+"/admin")
-@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize(ROLE_ADMIN)
 public class AdminController {
     Logger logger = LoggerFactory.getLogger(AdminController.class);
 
