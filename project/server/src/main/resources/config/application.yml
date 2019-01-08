@@ -10,6 +10,9 @@ storage:
 cron:
   cronLocation: 0 36 11 * * ?
 
+
+
+
 # ADMIN (SpringApplicationAdminJmxAutoConfiguration)
 #  spring.application.admin.enabled=false # Enable admin features for the application.
 #  spring.application.admin.jmx-name=org.springframework.boot:type=Admin,name=SpringApplication # JMX name of the application admin MBean.
@@ -66,6 +69,18 @@ logging:
 # ----------------------------------------
 # SECURITY (SecurityProperties)
 
+# 使用spring security则不需要配置,用户名和密码使用数据库的
+#management.shell.auth:
+#  simple.user:
+#    name:
+#    password:
+management:
+  context-path: /monitor
+  #If you don’t want to expose endpoints over HTTP you can set the management port to -1:
+  port: 9081
+  security:
+    enabled: false
+endpoints.jmx.enabled: false
 
 # JWT
 jwt:
