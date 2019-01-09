@@ -34,11 +34,8 @@ import java.util.Date;
 @Setter
 public abstract class BaseEntity  implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    protected static final String NOT_DELETED = "deleted_on > CURRENT_TIMESTAMP OR deleted_on IS NULL";
-
-//    @JsonIgnore
-//    private Integer tenantId;
+    @JsonIgnore
+    private Integer tenantId;
 
     @JsonIgnore
     @CreatedDate

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lzy.common.entity.BaseEntity;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -15,6 +16,7 @@ import javax.persistence.MappedSuperclass;
 @Data
 public abstract class PersonEntity extends BaseEntity {
 
+    @Column(nullable = false)
     private String name;
     private String gender;
     private String birth;
