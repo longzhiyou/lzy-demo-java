@@ -68,6 +68,19 @@ public class CustomerResource {
 
     }
 
+    /**
+     * 版本2
+     * @param create
+     * @return
+     */
+    @PostMapping(consumes = "application/json",headers = {"X-API-Version=2"})
+    public ResponseEntity createV2(@RequestBody Customer create) {
+
+        Customer save = customerRepository.save(create);
+        return new ResponseEntity<>(save, HttpStatus.CREATED);
+    }
+
+
     @PutMapping(value ="/{id}")
     public ResponseEntity update(@PathVariable Long id, @RequestBody Customer update) {
         Customer one = customerRepository.findOne(id);

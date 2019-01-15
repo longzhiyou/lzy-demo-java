@@ -21,7 +21,4 @@ public abstract class PersonEntity extends BaseEntity {
     private String gender;
     private String birth;
 
-    private String firstName;
-    private String lastName;
-
 }

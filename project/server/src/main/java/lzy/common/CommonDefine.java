@@ -7,7 +7,7 @@ package lzy.common;
  */
 public interface CommonDefine {
 
-    String BASE_URI = "/api/v1";
+    String BASE_URI = "/api";
     int PASSWORD_ENCODER_STRENGTH=4;
 
 
