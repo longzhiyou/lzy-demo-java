@@ -9,6 +9,7 @@
 
 ## Restful为核心进行设计
 - [REST-API-Design-Guide](https://github.com/NationalBankBelgium/REST-API-Design-Guide/wiki/REST-Constraints)
+- [使用Spring构建RESTful的Web服务](https://rest-with-spring.gaospot.com)
 
 ### 参考
 | HTTP 方法| URI| 作用|参数|返回码|返回值|

@@ -3,6 +3,11 @@
 server:
   port: ${port:3009}
 
+# 启用压缩
+  compression:
+    enabled: true
+    mime-types: application/json
+
 storage:
   location: upload-dir
 
